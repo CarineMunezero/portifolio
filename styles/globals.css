@@ -1,0 +1,783 @@
+:root {
+  --pink-main: #f36da8;
+  --pink-soft: #ffe9f3;
+  --pink-soft-2: #fdeaf7;
+  --pink-accent: #ff9fba;
+  --text-main: #3a3a3a;
+  --text-muted: #777777;
+  --bg-light: #fff9fd;
+  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.06);
+  --radius-lg: 24px;
+  --max-width: 1100px;
+}
+
+/* =============== RESET-ISH ================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: var(--text-main);
+  background: white;
+}
+
+/* Base typography */
+body {
+  font-size: 18px; /* bigger base font */
+  line-height: 1.8;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =============== LAYOUT UTILS ================= */
+
+.page {
+  min-height: 100vh;
+  background: white;
+}
+
+.page-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem; /* smaller top padding to reduce gap */
+}
+
+.section {
+  margin-top: 1.75rem; /* was 3rem */
+}
+
+/* First section on each page sits closer to navbar */
+.page-inner .section:first-of-type {
+  margin-top: 0;
+}
+
+/* Section titles + subtitles (Faith-style) */
+.section-title {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: clamp(2.4rem, 3vw + 1.2rem, 3.4rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-subtitle {
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+}
+
+/* =============== NAVBAR ================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #f5d9ea;
+}
+
+.site-header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: var(--pink-main);
+}
+
+.logo-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 20% 0%, #ffe7ff, #ff9fba, #ffc4b3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 700;
+}
+
+.logo-text {
+  font-size: 1rem;
+}
+
+.desktop-nav {
+  display: flex;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.desktop-nav a {
+  font-size: 0.98rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 0;
+  height: 2px;
+  background: var(--pink-main);
+  transition: width 0.2s ease;
+}
+
+.desktop-nav a:hover::after {
+  width: 100%;
+}
+
+/* Hamburger */
+
+.nav-toggle {
+  display: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid #ffd2e8;
+  background: white;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  width: 18px;
+  height: 2px;
+  background: var(--pink-main);
+  border-radius: 999px;
+  position: relative;
+}
+
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: var(--pink-main);
+  border-radius: 999px;
+}
+
+.nav-toggle span::before {
+  top: -5px;
+}
+
+.nav-toggle span::after {
+  top: 5px;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  padding: 0 1.25rem 0.75rem;
+  gap: 0.5rem;
+  border-top: 1px solid #ffd9ec;
+  background: white;
+}
+
+.mobile-nav a {
+  font-size: 0.95rem;
+  padding: 0.25rem 0;
+}
+
+/* =============== HERO (landing page) ================= */
+
+.hero {
+  background: linear-gradient(135deg, #faf8fa, #f7f8f9, #f8f7f7);
+  padding: 4rem 0 4.5rem;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroFadeUp 0.9s ease-out forwards;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 5vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: #c7528c;
+  margin-bottom: 1.1rem;
+}
+
+.hero-highlight {
+  font-style: italic;
+}
+
+.hero-body {
+  max-width: 650px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.hero-body a {
+  text-decoration: underline;
+}
+
+.hero-cta-row {
+  margin-top: 2.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-pill-primary {
+  border-radius: 999px;
+  border: none;
+  background: #f06ea6;
+  color: white;
+  padding: 0.85rem 1.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(255, 143, 192, 0.4);
+}
+
+.btn-pill-primary:hover {
+  background: #e85d98;
+}
+
+.btn-pill-ghost {
+  border-radius: 999px;
+  border: 1px solid #f9badc;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1.6rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.hero-curious {
+  margin-top: 2.75rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============== CARD GRIDS ================= */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.7rem;
+  background: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.card-soft {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 233, 245, 0.95),
+    rgba(255, 245, 253, 0.95)
+  );
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.12rem;
+  margin-bottom: 0.4rem;
+}
+
+.card-tag {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pink-main);
+  margin-bottom: 0.35rem;
+}
+
+.card-body {
+  font-size: 1.02rem; /* bigger */
+  color: var(--text-muted);
+}
+
+/* =============== ABOUT PAGE main section ================= */
+
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+  gap: 2.75rem;
+  margin-top: 2.5rem;
+  align-items: flex-start;
+}
+
+.about-text p {
+  font-size: 1.08rem; /* bigger body text */
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.about-highlight {
+  font-style: italic;
+  color: var(--pink-main);
+}
+
+/* Simple slider */
+
+.photo-slider {
+  background: var(--pink-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.photo-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #e5e5e5;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-caption {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.photo-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+
+.photo-dot-row {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.photo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #f5c6df;
+}
+
+.photo-dot.active {
+  background: var(--pink-main);
+}
+
+.photo-arrow-btn {
+  border-radius: 999px;
+  border: 1px solid #f9badc;
+  background: white;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* ABOUT four cards */
+
+.about-cards {
+  margin-top: 3rem;
+}
+
+.about-cards .card:nth-child(2),
+.about-cards .card:nth-child(4) {
+  background: var(--pink-soft-2);
+}
+
+/* =============== MILESTONES timeline ================= */
+
+.timeline {
+  margin-top: 3rem;
+}
+
+.timeline-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.timeline-list {
+  position: relative;
+  padding-left: 1.5rem;
+  margin: 0;
+  list-style: none;
+}
+
+.timeline-list::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #f8b7dc, #ffdceb);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.6rem;
+}
+
+.timeline-bullet {
+  position: absolute;
+  left: -0.4rem;
+  top: 0.35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: white;
+  border: 3px solid #f384b5;
+}
+
+.timeline-card {
+  margin-left: 1.3rem;
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.04);
+}
+
+.timeline-title {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-meta {
+  font-size: 0.9rem;
+  color: var(--pink-main);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-body {
+  font-size: 1rem; /* bigger */
+  color: var(--text-muted);
+}
+
+/* =============== PROJECTS + EXPERIENCE wide cards ================= */
+
+.project-card,
+.experience-card {
+  border-radius: var(--radius-lg);
+  padding: 1.7rem 1.8rem;
+  background: white;
+  box-shadow: var(--shadow-soft);
+  margin-top: 1.5rem;
+}
+
+.project-header,
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.project-title,
+.experience-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.project-org,
+.experience-org {
+  font-size: 0.95rem;
+  color: var(--pink-main);
+}
+
+.project-body,
+.experience-body {
+  font-size: 1.02rem; /* bigger */
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+}
+
+.tech-tag {
+  font-size: 0.8rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  background: #fff1fa;
+  border: 1px solid #ffd9ee;
+}
+
+/* =============== FOOTER ================= */
+
+.site-footer {
+  border-top: 1px solid #f6d8ea;
+  background: var(--bg-light);
+}
+
+.site-footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.footer-link {
+  font-weight: 500;
+  color: var(--pink-main);
+}
+
+/* =============== RESPONSIVE ================= */
+
+@media (max-width: 780px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .mobile-nav.open {
+    display: flex;
+  }
+
+  .hero {
+    padding: 3rem 0 3.25rem;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============== EXTRA TYPOGRAPHY TWEAKS ================= */
+
+/* Main paragraphs in <main> */
+main p {
+  font-size: 1.1rem;
+}
+
+/* =============== SOFT GLITTER HOVER OVERLAY ================= */
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Sparkle layer that appears when you hover anywhere */
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: -20%;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.45) 0, transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.6) 0, transparent 55%),
+    radial-gradient(circle at 20% 90%, rgba(255, 192, 203, 0.35) 0, transparent 55%),
+    radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.45) 0, transparent 55%);
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter: blur(1px);
+  transition: opacity 0.4s ease-out;
+  animation: sparkleFloat 14s linear infinite;
+  z-index: -1; /* keep the glow behind content so images don't wash out */
+}
+
+body:hover::before {
+  opacity: 0.4;
+}
+
+@keyframes sparkleFloat {
+  0% {
+    transform: translate3d(-5%, -5%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(5%, 5%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-5%, -5%, 0) scale(1);
+  }
+}
+
+/* =============== FAITH-STYLE HORIZONTAL LINE ================= */
+
+.timeline-line {
+  width: 100%;
+  max-width: 900px;
+  height: 3px;
+  margin: 2.5rem auto 2rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 192, 203, 0) 0%,
+    rgba(255, 153, 204, 0.7) 25%,
+    rgba(255, 179, 217, 0.9) 50%,
+    rgba(255, 153, 204, 0.7) 75%,
+    rgba(255, 192, 203, 0) 100%
+  );
+  position: relative;
+}
+
+/* little dots along the line */
+.timeline-line::before,
+.timeline-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ff7ab8;
+  transform: translateY(-50%);
+  box-shadow: 0 0 12px rgba(255, 122, 184, 0.6);
+}
+
+.timeline-line::before {
+  left: 22%;
+}
+
+.timeline-line::after {
+  right: 22%;
+}
+/* ===== FINAL TWEAKS: KILL TOP GAP + BUMP TEXT SIZE ===== */
+
+/* 1) Reduce padding under the navbar */
+.page-inner {
+  padding-top: 0.5rem; /* was 1rem */
+}
+
+/* 2) Remove any top margin on the first element inside each page
+   (this catches the "My Experience" h1 and similar headers) */
+.page-inner > *:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Extra safety if your first child is a section title */
+.page-inner .section-title:first-child {
+  margin-top: 0 !important;
+}
+
+/* 3) Make body text noticeably bigger site-wide */
+main p,
+.about-text p,
+.card-body,
+.timeline-body,
+.project-body,
+.experience-body {
+  font-size: 1.12rem;   /* bump this up/down if you want */
+  line-height: 1.85;
+}
+/* ===== NAVBAR + FOOTER TWEAKS ===== */
+
+/* Stronger pink background for header */
+.site-header {
+  background: linear-gradient(
+    90deg,
+    #ffe5f4,
+    #ffd2ec,
+    #ffe5f4
+  );
+  border-bottom: 1px solid #f5b5da;
+}
+
+/* Make logo + nav links bigger */
+.logo-text {
+  font-size: 1.05rem;
+}
+
+.desktop-nav a {
+  font-size: 1.02rem;
+}
+
+/* Footer background + text size */
+.site-footer {
+  background: linear-gradient(
+    90deg,
+    #ffe5f4,
+    #ffd2ec,
+    #ffe5f4
+  );
+  border-top: 1px solid #f5b5da;
+}
+
+.site-footer-inner {
+  font-size: 0.98rem;
+}
+
+.footer-link {
+  font-size: 1rem;
+}
